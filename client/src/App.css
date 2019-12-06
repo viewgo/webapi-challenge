@@ -1,0 +1,72 @@
+.App {
+  text-align: center;
+
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.project-list {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.project-card {
+  /* border: 1px solid red; */
+  background: #00000022;
+  width: 70%;
+  margin: 10px;
+  padding: 10px;
+}
+.project-card:hover {
+  cursor: pointer;
+}
+
+.project-details-card {
+  /* border: 1px solid red; */
+  background: #00000022;
+  width: 70%;
+  margin: 10px;
+  padding: 10px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+
+h4{
+  margin-top: 10px;
+}
+
+h3 {
+  font-style: italic;
+  font-weight: 300;
+}
+
+
+a {
+  width: 100%;
+  text-decoration: none;
+  color: black;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.actions-list{
+  text-align: left;
+}
