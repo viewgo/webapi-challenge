@@ -5,8 +5,20 @@
   height: 100vh;
 
   display: flex;
+  flex-flow: column;
   justify-content: center;
   align-items: center;
+}
+
+.home-button{
+  position: fixed;
+  top: 0;
+  color: red;
+  margin: 0;
+}
+
+.home-button a{
+  color: red;
 }
 
 .project-list {

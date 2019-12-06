@@ -13,6 +13,9 @@ function App() {
 
   return (
     <div className="App">
+
+    <p className="home-button"><Link to="/">Home</Link></p>
+
       <Route exact path="/" component={ProjectList} />
       <Route
         path="/projects/:id"
