@@ -5,12 +5,12 @@ const router = express.Router();
 
 router.use(express.json());
 
-//end points
+//project endpoints
 router.get("/", (req, res) => {
   projects
     .get()
-    .then(users => {
-      res.status(200).json(users);
+    .then(projects => {
+      res.status(200).json(projects);
     })
     .catch(err => {
       console.log("error on GET /api/projects", err);
@@ -34,19 +34,21 @@ router.get("/:id", validateProjectId, (req, res) => {
     });
 });
 
-router.get("/:id/actions", validateProjectId, (req,res) => {
-    projects
-        .getProjectActions(req.params.id)
-        .then(actions => {
-            res.status(200).json(actions);
-        })
-        .catch(err => {
-            console.log(`error on GET /projects/${req.params.id}/actions`, err);
-            res
-              .status(500)
-              .json({ error: "The project's actions information could not be retrieved." });
-          });
-})
+router.get("/:id/actions", validateProjectId, (req, res) => {
+  projects
+    .getProjectActions(req.params.id)
+    .then(actions => {
+      res.status(200).json(actions);
+    })
+    .catch(err => {
+      console.log(`error on GET /projects/${req.params.id}/actions`, err);
+      res
+        .status(500)
+        .json({
+          error: "The project's actions information could not be retrieved."
+        });
+    });
+});
 
 router.post("/", validateProject, (req, res) => {
   projects
@@ -63,34 +65,32 @@ router.post("/", validateProject, (req, res) => {
 });
 
 router.delete("/:id", validateProjectId, (req, res) => {
-    projects
-        .remove(req.params.id)
-        .then(response => {
-            res.status(200).json({message: "Project deleted successfully."});
-        })
-        .catch(err => {
-            console.log(`error on DELETE /projects/${req.params.id}`, err);
-            res
-              .status(500)
-              .json({ error: "The project information could not be deleted." });
-          });
-})
+  projects
+    .remove(req.params.id)
+    .then(response => {
+      res.status(200).json({ message: "Project deleted successfully." });
+    })
+    .catch(err => {
+      console.log(`error on DELETE /projects/${req.params.id}`, err);
+      res
+        .status(500)
+        .json({ error: "The project information could not be deleted." });
+    });
+});
 
 router.put("/:id", validateProjectId, validateProject, (req, res) => {
-    projects
-        .update(req.params.id, req.body)
-        .then(project => {
-            res.status(200).json(project);
-        })
-        .catch(err => {
-            console.log(`error on PUT /projects/${req.params.id}`, err);
-            res
-              .status(500)
-              .json({ error: "The project information could not be changed." });
-          });
-})
-
-
+  projects
+    .update(req.params.id, req.body)
+    .then(project => {
+      res.status(200).json(project);
+    })
+    .catch(err => {
+      console.log(`error on PUT /projects/${req.params.id}`, err);
+      res
+        .status(500)
+        .json({ error: "The project information could not be changed." });
+    });
+});
 
 //custom middleware
 function validateProjectId(req, res, next) {
