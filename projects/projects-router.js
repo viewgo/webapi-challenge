@@ -7,14 +7,19 @@ router.use(express.json());
 
 //end points
 router.get("/", (req, res) => {
-    res.send(`
-      <h2>Projects Endpoint</h2>
-      <p></p>
-      `);
-})
+  projects
+    .get()
+    .then(users => {
+      res.status(200).json(users);
+    })
+    .catch(err => {
+      console.log("error on GET /api/projects", err);
+      res
+        .status(500)
+        .json({ error: "The projects information could not be retrieved" });
+    });
+});
 
 //custom middleware
 
-
 module.exports = router;
-
