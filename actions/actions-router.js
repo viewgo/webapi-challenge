@@ -49,6 +49,20 @@ router.post("/", validateAction, (req, res) => {
     });
 });
 
+router.delete("/:id", validateActionId, (req, res) => {
+    actions
+      .remove(req.params.id)
+      .then(response => {
+        res.status(200).json({ message: "Action deleted successfully." });
+      })
+      .catch(err => {
+        console.log(`error on DELETE /actions/${req.params.id}`, err);
+        res
+          .status(500)
+          .json({ error: "The action information could not be deleted." });
+      });
+  });
+
 //custom middleware
 function validateActionId(req, res, next) {
   actions.get(req.params.id).then(action => {
