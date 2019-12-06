@@ -34,6 +34,20 @@ router.get("/:id", validateProjectId, (req, res) => {
     });
 });
 
+router.get("/:id/actions", validateProjectId, (req,res) => {
+    projects
+        .getProjectActions(req.params.id)
+        .then(actions => {
+            res.status(200).json(actions);
+        })
+        .catch(err => {
+            console.log(`error on GET /projects/${req.params.id}/actions`, err);
+            res
+              .status(500)
+              .json({ error: "The project's actions information could not be retrieved." });
+          });
+})
+
 router.post("/", validateProject, (req, res) => {
   projects
     .insert(req.body)
