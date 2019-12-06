@@ -63,6 +63,20 @@ router.delete("/:id", validateActionId, (req, res) => {
       });
   });
 
+  router.put("/:id", validateActionId, validateAction, (req, res) => {
+    actions
+      .update(req.params.id, req.body)
+      .then(action => {
+        res.status(200).json(action);
+      })
+      .catch(err => {
+        console.log(`error on PUT /actions/${req.params.id}`, err);
+        res
+          .status(500)
+          .json({ error: "The action information could not be changed." });
+      });
+  });
+
 //custom middleware
 function validateActionId(req, res, next) {
   actions.get(req.params.id).then(action => {
@@ -78,7 +92,7 @@ function validateActionId(req, res, next) {
 
 function validateAction(req, res, next) {
   if (!Object.keys(req.body).length > 0) {
-    res.status(400).json({ message: "missing project data" });
+    res.status(400).json({ message: "missing action data" });
   } else if (!req.body.description || !req.body.notes || !req.body.project_id) {
     res.status(400).json({
       message: "missing required project_id, description, or notes field"
